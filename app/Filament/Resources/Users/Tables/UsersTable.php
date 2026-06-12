@@ -24,6 +24,10 @@ class UsersTable
                 TextColumn::make('email')
                     ->label('Correo electrónico')
                     ->searchable(),
+                TextColumn::make('roles.name')
+                    ->label('Rol')
+                    ->separator(', ')
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()

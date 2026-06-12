@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +29,11 @@ class UserForm
                     ->required(fn(string $operation): bool => $operation === 'create')
                     ->dehydrateStateUsing(fn(?string $state): ?string => $state ? Hash::make($state) : null)
                     ->dehydrated(fn(?string $state): bool => filled($state)),
+                Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 }
