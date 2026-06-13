@@ -47,9 +47,12 @@ class CoffeeVarietiesTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
-                RestoreAction::make(),
+                EditAction::make()
+                    ->hidden(fn ($record) => $record->trashed()),
+                DeleteAction::make()
+                    ->hidden(fn ($record) => $record->trashed()),
+                RestoreAction::make()
+                    ->hidden(fn ($record) => !$record->trashed()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

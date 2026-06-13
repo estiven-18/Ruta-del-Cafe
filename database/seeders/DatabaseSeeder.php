@@ -18,12 +18,18 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::findOrCreate('super_admin');
 
-        $user = User::create([
+        $admin = User::create([
             'name' => 'Admin',
             'email' => '1@gmail.com',
             'password' => bcrypt('1'),
         ]);
 
-        $user->assignRole($role);
+        $admin->assignRole($role);
+
+        User::create([
+            'name' => 'Prueba',
+            'email' => '2@gmail.com',
+            'password' => bcrypt('1'),
+        ]);
     }
 }

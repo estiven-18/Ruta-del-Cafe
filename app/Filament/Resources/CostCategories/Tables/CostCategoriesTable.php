@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\CostCategories\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -12,7 +12,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class UsersTable
+class CostCategoriesTable
 {
     public static function configure(Table $table): Table
     {
@@ -21,12 +21,8 @@ class UsersTable
                 TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Correo electrónico')
-                    ->searchable(),
-                TextColumn::make('roles.name')
-                    ->label('Rol')
-                    ->separator(', ')
+                TextColumn::make('description')
+                    ->label('Descripción')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->label('Creado el')
