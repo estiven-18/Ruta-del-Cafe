@@ -17,12 +17,6 @@ return new class extends Migration
 
             $table->string('phone')->nullable();
 
-            $table->enum('status', [
-                'activo',
-                'inactivo',
-                'archivado',
-            ])->default('activo');
-
             $table->text('notes')->nullable();
 
             $table->foreignId('created_by')
@@ -37,8 +31,6 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('status');
         });
     }
 
