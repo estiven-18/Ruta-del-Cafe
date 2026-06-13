@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('is_resistant')->default(false);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

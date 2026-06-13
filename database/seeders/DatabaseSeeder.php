@@ -5,22 +5,25 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Artisan::call('shield:generate', ['--all' => true, '--panel' => 'admin', '--no-interaction' => true]);
 
-        User::create([
+        $role = Role::findOrCreate('super_admin');
+
+        $user = User::create([
             'name' => 'Admin',
             'email' => '1@gmail.com',
             'password' => bcrypt('1'),
         ]);
+
+        $user->assignRole($role);
     }
 }
