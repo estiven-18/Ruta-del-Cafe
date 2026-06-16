@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Producers\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
@@ -12,6 +13,12 @@ class ProducerForm
     {
         return $schema
             ->components([
+                Select::make('farms')
+                    ->label('Fincas')
+                    ->relationship('farms', 'name')
+                    ->multiple()
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('name')
                     ->label('Nombre')
                     ->maxLength(255)

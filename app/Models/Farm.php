@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Producer extends Model
+class Farm extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
         'name',
-        'document_number',
-        'phone',
+        'location',
+        'total_area_hectares',
         'notes',
     ];
 
-    public function farms(): BelongsToMany
+    public function producers(): BelongsToMany
     {
-        return $this->belongsToMany(Farm::class);
+        return $this->belongsToMany(Producer::class);
     }
 }

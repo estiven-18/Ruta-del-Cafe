@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::create('producers', function (Blueprint $table) {
             $table->id();
 
+
+
             $table->string('name');
 
             $table->string('document_number')->unique();
@@ -18,16 +20,6 @@ return new class extends Migration
             $table->string('phone')->nullable();
 
             $table->text('notes')->nullable();
-
-            $table->foreignId('created_by')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
-
-            $table->foreignId('updated_by')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

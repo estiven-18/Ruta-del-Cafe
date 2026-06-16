@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Producers\Tables;
+namespace App\Filament\Resources\Farms\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -12,25 +12,26 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class ProducersTable
+class FarmsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('farms.name')
-                    ->label('Fincas')
-                    ->badge()
-                    ->searchable(),
                 TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
-                TextColumn::make('document_number')
-                    ->label('Número de documento')
+                TextColumn::make('producers.name')
+                    ->label('Productores')
+                    ->badge()
                     ->searchable(),
-                TextColumn::make('phone')
-                    ->label('Teléfono')
+                TextColumn::make('location')
+                    ->label('Ubicación')
                     ->searchable(),
+                TextColumn::make('total_area_hectares')
+                    ->label('Área total (ha)')
+                    ->numeric(decimalPlaces: 2)
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()

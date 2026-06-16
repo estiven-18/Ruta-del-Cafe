@@ -31,5 +31,11 @@ class DatabaseSeeder extends Seeder
             'email' => '2@gmail.com',
             'password' => bcrypt('1'),
         ]);
+
+        $this->call([
+            CoffeeVarietySeeder::class,
+            CostCategorySeeder::class,
+            FarmSeeder::class,
+        ]);
     }
 }
