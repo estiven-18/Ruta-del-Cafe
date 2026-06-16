@@ -35,12 +35,6 @@ return new class extends Migration
             //ingresos totales por esta cosecha
             $table->decimal('total_income', 14, 2);
 
-            $table->enum('status', [
-                'borrador',
-                'completado',
-                'cancelado'
-            ])->default('borrador');
-
             $table->text('notes')->nullable();
 
             $table->timestamps();

@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             CostCategorySeeder::class,
             FarmSeeder::class,
             CropSeeder::class,
+            HarvestSeeder::class,
         ]);
     }
 }
