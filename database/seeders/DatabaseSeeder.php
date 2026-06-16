@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             CoffeeVarietySeeder::class,
             CostCategorySeeder::class,
             FarmSeeder::class,
+            CropSeeder::class,
         ]);
     }
 }
