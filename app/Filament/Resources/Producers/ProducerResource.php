@@ -21,7 +21,7 @@ class ProducerResource extends Resource
 
     protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUser;
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationLabel = 'Productores';

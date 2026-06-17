@@ -21,7 +21,7 @@ class HarvestResource extends Resource
 
     protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAmericas;
 
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?string $navigationLabel = 'Cosechas';

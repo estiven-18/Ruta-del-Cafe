@@ -21,7 +21,7 @@ class FarmResource extends Resource
 
     protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHomeModern;
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationLabel = 'Fincas';
