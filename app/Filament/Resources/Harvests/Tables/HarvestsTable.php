@@ -50,6 +50,17 @@ class HarvestsTable
                     ->label('Ingresos')
                     ->money('USD')
                     ->sortable(),
+                TextColumn::make('quality_grade')
+                    ->label('Calificación')
+                    ->getStateUsing(fn ($record) => $record->qualityEvaluations->first()?->quality_grade ?? 'Sin calificar')
+                    ->badge()
+                    ->color(fn (?string $state): string => match ($state) {
+                        'especial' => 'success',
+                        'alto' => 'primary',
+                        'medio' => 'warning',
+                        'bajo' => 'gray',
+                        default => 'gray',
+                    }),
                 TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()

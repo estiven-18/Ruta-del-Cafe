@@ -31,4 +31,9 @@ class Harvest extends Model
     {
         return $this->hasMany('App\Models\HarvestCost');
     }
+
+    public function qualityEvaluations(): HasMany
+    {
+        return $this->hasMany('App\Models\QualityEvaluation');
+    }
 }

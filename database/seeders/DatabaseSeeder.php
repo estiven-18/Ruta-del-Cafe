@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             CropSeeder::class,
             HarvestSeeder::class,
             HarvestCostSeeder::class,
+            QualityEvaluationSeeder::class,
         ]);
     }
 }
