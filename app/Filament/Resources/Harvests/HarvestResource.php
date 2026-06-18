@@ -19,11 +19,12 @@ class HarvestResource extends Resource
 {
     protected static ?string $model = Harvest::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Producción';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAmericas;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowTrendingUp;
 
     protected static ?string $recordTitleAttribute = 'id';
+    protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Cosechas';
     protected static ?string $pluralLabel = 'Cosechas';
 

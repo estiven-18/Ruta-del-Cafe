@@ -19,11 +19,12 @@ class FarmResource extends Resource
 {
     protected static ?string $model = Farm::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Registro';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHomeModern;
 
     protected static ?string $recordTitleAttribute = 'name';
+    protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Fincas';
     protected static ?string $pluralLabel = 'Fincas';
 

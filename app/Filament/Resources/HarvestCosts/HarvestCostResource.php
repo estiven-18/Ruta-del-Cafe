@@ -19,11 +19,12 @@ class HarvestCostResource extends Resource
 {
     protected static ?string $model = HarvestCost::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Costos y Evaluación';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentCurrencyDollar;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCurrencyDollar;
 
     protected static ?string $recordTitleAttribute = 'id';
+    protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Costos de Cosecha';
     protected static ?string $pluralLabel = 'Costos de Cosecha';
 

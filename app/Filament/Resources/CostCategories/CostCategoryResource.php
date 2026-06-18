@@ -19,11 +19,12 @@ class CostCategoryResource extends Resource
 {
     protected static ?string $model = CostCategory::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Registro';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
     protected static ?string $recordTitleAttribute = 'name';
+    protected static ?int $navigationSort = 4;
     protected static ?string $navigationLabel = 'Categorías de Costos';
     protected static ?string $pluralLabel = 'Categorías de Costos';
 

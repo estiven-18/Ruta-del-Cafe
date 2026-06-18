@@ -15,11 +15,12 @@ class ProfitabilityReportResource extends Resource
 {
     protected static ?string $model = ProfitabilityReport::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Costos y Evaluación';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChartBarSquare;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPresentationChartBar;
 
     protected static ?string $recordTitleAttribute = 'id';
+    protected static ?int $navigationSort = 3;
     protected static ?string $navigationLabel = 'Reportes de Rentabilidad';
     protected static ?string $pluralLabel = 'Reportes de Rentabilidad';
 

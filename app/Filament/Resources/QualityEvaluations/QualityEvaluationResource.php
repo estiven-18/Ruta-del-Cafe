@@ -19,11 +19,12 @@ class QualityEvaluationResource extends Resource
 {
     protected static ?string $model = QualityEvaluation::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Costos y Evaluación';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
     protected static ?string $recordTitleAttribute = 'id';
+    protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Evaluaciones de Calidad';
     protected static ?string $pluralLabel = 'Evaluaciones de Calidad';
 

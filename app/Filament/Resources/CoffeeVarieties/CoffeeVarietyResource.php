@@ -19,11 +19,12 @@ class CoffeeVarietyResource extends Resource
 {
     protected static ?string $model = CoffeeVariety::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Registro';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSparkles;
 
     protected static ?string $recordTitleAttribute = 'name';
+    protected static ?int $navigationSort = 3;
     protected static ?string $navigationLabel = 'Variedades de Café';
     protected static ?string $pluralLabel = 'Variedades de Café';
 

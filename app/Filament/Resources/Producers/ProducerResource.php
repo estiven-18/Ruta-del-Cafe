@@ -19,11 +19,12 @@ class ProducerResource extends Resource
 {
     protected static ?string $model = Producer::class;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Catálogos';
+    protected static UnitEnum|string|null $navigationGroup = 'Registro';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUser;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
 
     protected static ?string $recordTitleAttribute = 'name';
+    protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Productores';
     protected static ?string $pluralLabel = 'Productores';
 
