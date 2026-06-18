@@ -23,6 +23,9 @@ class HarvestResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowTrendingUp;
 
+    protected static ?string $modelLabel = 'Cosecha';
+    protected static ?string $pluralModelLabel = 'Cosechas';
+
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Cosechas';

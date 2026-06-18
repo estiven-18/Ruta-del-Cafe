@@ -19,6 +19,9 @@ class ProfitabilityReportResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPresentationChartBar;
 
+    protected static ?string $modelLabel = 'Reporte de Rentabilidad';
+    protected static ?string $pluralModelLabel = 'Reportes de Rentabilidad';
+
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationLabel = 'Reportes de Rentabilidad';

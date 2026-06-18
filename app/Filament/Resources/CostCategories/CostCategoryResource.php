@@ -23,6 +23,9 @@ class CostCategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
+    protected static ?string $modelLabel = 'Categoría de Costo';
+    protected static ?string $pluralModelLabel = 'Categorías de Costos';
+
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort = 4;
     protected static ?string $navigationLabel = 'Categorías de Costos';

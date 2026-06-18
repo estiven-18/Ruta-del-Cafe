@@ -23,6 +23,9 @@ class HarvestCostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCurrencyDollar;
 
+    protected static ?string $modelLabel = 'Costo de Cosecha';
+    protected static ?string $pluralModelLabel = 'Costos de Cosecha';
+
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Costos de Cosecha';

@@ -23,6 +23,9 @@ class FarmResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHomeModern;
 
+    protected static ?string $modelLabel = 'Finca';
+    protected static ?string $pluralModelLabel = 'Fincas';
+
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Fincas';

@@ -23,6 +23,9 @@ class CoffeeVarietyResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSparkles;
 
+    protected static ?string $modelLabel = 'Variedad de Café';
+    protected static ?string $pluralModelLabel = 'Variedades de Café';
+
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationLabel = 'Variedades de Café';

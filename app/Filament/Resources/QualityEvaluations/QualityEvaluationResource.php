@@ -23,6 +23,9 @@ class QualityEvaluationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
+    protected static ?string $modelLabel = 'Evaluación de Calidad';
+    protected static ?string $pluralModelLabel = 'Evaluaciones de Calidad';
+
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Evaluaciones de Calidad';
