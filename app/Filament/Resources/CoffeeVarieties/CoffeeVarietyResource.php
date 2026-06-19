@@ -6,6 +6,7 @@ use App\Filament\Resources\CoffeeVarieties\Pages\CreateCoffeeVariety;
 use App\Filament\Resources\CoffeeVarieties\Pages\EditCoffeeVariety;
 use App\Filament\Resources\CoffeeVarieties\Pages\ListCoffeeVarieties;
 use App\Filament\Resources\CoffeeVarieties\Schemas\CoffeeVarietyForm;
+use App\Filament\Resources\CoffeeVarieties\RelationManagers\CropsRelationManager;
 use App\Filament\Resources\CoffeeVarieties\Tables\CoffeeVarietiesTable;
 use App\Models\CoffeeVariety;
 use BackedEnum;
@@ -44,7 +45,7 @@ class CoffeeVarietyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CropsRelationManager::class,
         ];
     }
 

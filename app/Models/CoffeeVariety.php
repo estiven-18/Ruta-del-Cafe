@@ -17,4 +17,9 @@ class CoffeeVariety extends Model
         'typical_maturity_months',
         'is_resistant',
     ];
+
+    public function crops(): HasMany
+    {
+        return $this->hasMany(Crop::class);
+    }
 }

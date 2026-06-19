@@ -11,6 +11,7 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Filament\Actions\ActionGroup;
 
 class UsersTable
 {
@@ -43,12 +44,14 @@ class UsersTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                actionGroup::make([
                 EditAction::make()
                     ->hidden(fn ($record) => $record->trashed()),
                 DeleteAction::make()
                     ->hidden(fn ($record) => $record->trashed()),
                 RestoreAction::make()
                     ->hidden(fn ($record) => !$record->trashed()),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
