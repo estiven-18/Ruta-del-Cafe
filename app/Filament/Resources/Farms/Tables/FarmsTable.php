@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\Farms\Tables;
 
-use Filament\Actions\BulkActionGroup;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
-use Filament\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\Summarizers\Average;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -18,47 +18,62 @@ class FarmsTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label('#')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('name')
                     ->label('Nombre')
-                    ->searchable(),
-                TextColumn::make('producers.name')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->location ?? 'Sin ubicación'),
+                TextColumn::make('producers')
                     ->label('Productores')
                     ->badge()
-                    ->searchable(),
-                TextColumn::make('location')
-                    ->label('Ubicación')
-                    ->searchable(),
+                    ->getStateUsing(function ($record) {
+                        return $record->producers()->withTrashed()->get()->pluck('name')->toArray();
+                    }),
                 TextColumn::make('total_area_hectares')
                     ->label('Área total (ha)')
                     ->numeric(decimalPlaces: 2)
-                    ->sortable(),
+                    ->sortable()
+                    ->summarize([
+                        Sum::make()
+                            ->label('Total')
+                            ->suffix(' ha'),
+                        Average::make()
+                            ->label('Promedio')
+                            ->suffix(' ha'),
+                    ]),
                 TextColumn::make('created_at')
                     ->label('Creado el')
-                    ->dateTime()
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->label('Actualizado el')
-                    ->dateTime()
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                TrashedFilter::make(),
+                TrashedFilter::make()
+                    ->label('Papelera'),
             ])
             ->recordActions([
-                EditAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                DeleteAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                RestoreAction::make()
-                    ->hidden(fn ($record) => !$record->trashed()),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
+                ActionGroup::make([
+                    EditAction::make()
+                        ->hidden(fn ($record) => $record->trashed()),
+                    DeleteAction::make()
+                        ->hidden(fn ($record) => $record->trashed()),
+                    RestoreAction::make()
+                        ->hidden(fn ($record) => !$record->trashed()),
                 ]),
-            ]);
+            ])
+            ->defaultSort('name')
+            ->emptyStateHeading('Sin fincas registradas')
+            ->emptyStateDescription('Comience creando la primera finca.')
+            ->emptyStateIcon('heroicon-o-home-modern');
     }
 }
