@@ -2,12 +2,10 @@
 
 namespace App\Filament\Resources\Producers\Tables;
 
-use Filament\Actions\BulkActionGroup;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
-use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -18,27 +16,36 @@ class ProducersTable
     {
         return $table
             ->columns([
-                TextColumn::make('farms.name')
-                    ->label('Fincas')
-                    ->badge()
-                    ->searchable(),
                 TextColumn::make('name')
                     ->label('Nombre')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold'),
                 TextColumn::make('document_number')
-                    ->label('Número de documento')
-                    ->searchable(),
+                    ->label('Documento')
+                    ->searchable()
+                    ->placeholder('—'),
                 TextColumn::make('phone')
                     ->label('Teléfono')
-                    ->searchable(),
+                    ->searchable()
+                    ->copyable()
+                    ->copyMessage('Teléfono copiado')
+                    ->copyMessageDuration(1500)
+                    ->placeholder('—'),
+                TextColumn::make('farms')
+                    ->label('Fincas')
+                    ->badge()
+                    ->getStateUsing(function ($record) {
+                        return $record->farms()->withTrashed()->get()->pluck('name')->toArray();
+                    }),
                 TextColumn::make('created_at')
-                    ->label('Creado el')
-                    ->dateTime()
+                    ->label('Creado')
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('Actualizado el')
-                    ->dateTime()
+                    ->label('Actualizado')
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -46,19 +53,18 @@ class ProducersTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                EditAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                DeleteAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                RestoreAction::make()
-                    ->hidden(fn ($record) => !$record->trashed()),
+                ActionGroup::make([
+                    EditAction::make()
+                        ->hidden(fn($record) => $record->trashed()),
+                    DeleteAction::make()
+                        ->hidden(fn($record) => $record->trashed()),
+                    RestoreAction::make()
+                        ->hidden(fn($record) => !$record->trashed()),
+                ])
             ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
-            ]);
+            ->defaultSort('name')
+            ->emptyStateHeading('Sin productores registrados')
+            ->emptyStateDescription('Agregue los productores asociados a las fincas.')
+            ->emptyStateIcon('heroicon-o-user-group');
     }
 }
-
