@@ -15,5 +15,8 @@ class CostCategory extends Model
         'description',
     ];
 
-    
+    public function harvestCosts(): HasMany
+    {
+        return $this->hasMany(HarvestCost::class);
+    }
 }

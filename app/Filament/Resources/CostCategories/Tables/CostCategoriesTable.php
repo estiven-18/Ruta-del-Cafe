@@ -2,12 +2,10 @@
 
 namespace App\Filament\Resources\CostCategories\Tables;
 
-use Filament\Actions\BulkActionGroup;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
-use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -20,18 +18,28 @@ class CostCategoriesTable
             ->columns([
                 TextColumn::make('name')
                     ->label('Nombre')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold')
+                    ->limit(30),
                 TextColumn::make('description')
                     ->label('Descripción')
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('—')
+                    ->limit(50),
+                TextColumn::make('harvest_costs_count')
+                    ->label('Usos')
+                    ->counts('harvestCosts')
+                    ->sortable()
+                    ->alignCenter(),
                 TextColumn::make('created_at')
-                    ->label('Creado el')
-                    ->dateTime()
+                    ->label('Creado')
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('Actualizado el')
-                    ->dateTime()
+                    ->label('Actualizado')
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -39,18 +47,18 @@ class CostCategoriesTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                EditAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                DeleteAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                RestoreAction::make()
-                    ->hidden(fn ($record) => !$record->trashed()),
+                ActionGroup::make([
+                    EditAction::make()
+                        ->hidden(fn ($record) => $record->trashed()),
+                    DeleteAction::make()
+                        ->hidden(fn ($record) => $record->trashed()),
+                    RestoreAction::make()
+                        ->hidden(fn ($record) => !$record->trashed()),
+                ])
             ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
-            ]);
+            ->defaultSort('name')
+            ->emptyStateHeading('Sin categorías registradas')
+            ->emptyStateDescription('Agregue las categorías de costos para clasificar los gastos de cosecha.')
+            ->emptyStateIcon('heroicon-o-tag');
     }
 }

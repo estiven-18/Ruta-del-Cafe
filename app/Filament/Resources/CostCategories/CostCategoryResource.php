@@ -6,6 +6,7 @@ use App\Filament\Resources\CostCategories\Pages\CreateCostCategory;
 use App\Filament\Resources\CostCategories\Pages\EditCostCategory;
 use App\Filament\Resources\CostCategories\Pages\ListCostCategories;
 use App\Filament\Resources\CostCategories\Schemas\CostCategoryForm;
+use App\Filament\Resources\CostCategories\RelationManagers\HarvestCostsRelationManager;
 use App\Filament\Resources\CostCategories\Tables\CostCategoriesTable;
 use App\Models\CostCategory;
 use BackedEnum;
@@ -44,7 +45,7 @@ class CostCategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            HarvestCostsRelationManager::class,
         ];
     }
 

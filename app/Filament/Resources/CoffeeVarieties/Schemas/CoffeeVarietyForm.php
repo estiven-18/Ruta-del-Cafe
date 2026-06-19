@@ -54,6 +54,7 @@ class CoffeeVarietyForm
                         Textarea::make('description')
                             ->label('Descripción')
                             ->rows(5)
+                            ->maxLength(250)
                             ->placeholder('Notas, perfil de taza, recomendaciones de manejo, altitud óptima...')
                             ->required()
                             ->columnSpanFull(),
