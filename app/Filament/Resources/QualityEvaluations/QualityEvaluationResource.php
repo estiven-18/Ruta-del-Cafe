@@ -21,7 +21,7 @@ class QualityEvaluationResource extends Resource
 
     protected static UnitEnum|string|null $navigationGroup = 'Costos y Evaluación';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedStar;
 
     protected static ?string $modelLabel = 'Evaluación de Calidad';
     protected static ?string $pluralModelLabel = 'Evaluaciones de Calidad';

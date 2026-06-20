@@ -20,19 +20,28 @@ class HarvestCostsTable
     {
         return $table
             ->columns([
+                TextColumn::make('incurred_date')
+                    ->label('Fecha')
+                    ->date('d/m/Y')
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(function ($record) {
+                        $crop = $record->harvest?->crop;
+                        if (! $crop) return '—';
+                        $farm = $crop->farm()->withTrashed()->first()?->name ?? '—';
+                        return $farm;
+                    }),
                 TextColumn::make('harvest_id')
                     ->label('Cosecha')
                     ->numeric()
                     ->prefix('#')
-                    ->sortable(),
-                TextColumn::make('harvest.crop.coffeeVariety.name')
-                    ->label('Variedad')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('incurred_date')
-                    ->label('Fecha')
-                    ->date('d/m/Y')
-                    ->sortable(),
+                    ->sortable()
+                    ->description(function ($record) {
+                        $crop = $record->harvest?->crop;
+                        if (! $crop) return null;
+                        $variety = $crop->coffeeVariety?->name ?? '—';
+                        return "{$variety}";
+                    }),
                 TextColumn::make('costCategory.name')
                     ->label('Categoría')
                     ->badge()
@@ -43,6 +52,7 @@ class HarvestCostsTable
                     ->label('Monto')
                     ->money('Cop')
                     ->sortable()
+                    ->color('warning')
                     ->weight('bold')
                     ->summarize([
                         Sum::make()
@@ -52,18 +62,8 @@ class HarvestCostsTable
                 TextColumn::make('description')
                     ->label('Descripción')
                     ->limit(40)
-
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->label('Creado el')
-                    ->dateTime('d/m/Y')
-                    ->sortable()
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Actualizado el')
-                    ->dateTime('d/m/Y')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),    
             ])
             ->filters([
                 TrashedFilter::make()
