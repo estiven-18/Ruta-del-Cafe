@@ -39,8 +39,7 @@ class CropsTable
                 TextColumn::make('plant_count')
                     ->label('Plantas')
                     ->numeric()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
                 TextColumn::make('status')
                     ->label('Estado')
                     ->badge()

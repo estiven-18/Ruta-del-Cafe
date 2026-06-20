@@ -6,6 +6,7 @@ use App\Filament\Resources\Producers\Pages\CreateProducer;
 use App\Filament\Resources\Producers\Pages\EditProducer;
 use App\Filament\Resources\Producers\Pages\ListProducers;
 use App\Filament\Resources\Producers\Schemas\ProducerForm;
+use App\Filament\Resources\Producers\RelationManagers\FarmsRelationManager;
 use App\Filament\Resources\Producers\Tables\ProducersTable;
 use App\Models\Producer;
 use BackedEnum;
@@ -44,7 +45,7 @@ class ProducerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            FarmsRelationManager::class,
         ];
     }
 
