@@ -13,9 +13,10 @@ class CreateHarvestCost extends CreateRecord
     protected function handleRecordCreation(array $data): HarvestCost
     {
         $harvestId = $data['harvest_id'];
+        $lastCreated = null;
 
         foreach ($data['costs'] as $cost) {
-            HarvestCost::create([
+            $lastCreated = HarvestCost::create([
                 'harvest_id' => $harvestId,
                 'cost_category_id' => $cost['cost_category_id'],
                 'amount' => $cost['amount'],
@@ -24,6 +25,6 @@ class CreateHarvestCost extends CreateRecord
             ]);
         }
 
-        return HarvestCost::where('harvest_id', $harvestId)->first();
+        return $lastCreated;
     }
 }

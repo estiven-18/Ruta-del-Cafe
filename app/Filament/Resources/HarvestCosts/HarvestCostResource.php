@@ -33,7 +33,7 @@ class HarvestCostResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return HarvestCostForm::configure($schema);
+        return HarvestCostForm::configureForCreate($schema);
     }
 
     public static function table(Table $table): Table

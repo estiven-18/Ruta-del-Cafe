@@ -11,6 +11,7 @@ use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class FarmsTable
 {
@@ -25,9 +26,10 @@ class FarmsTable
                 TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable()
+                    ->limit(30)
                     ->sortable()
                     ->weight('bold')
-                    ->description(fn ($record) => $record->location ?? 'Sin ubicación'),
+                    ->description(fn ($record) => Str::limit($record->location ?? 'Sin ubicación', 30)),
                 TextColumn::make('producers')
                     ->label('Productores')
                     ->badge()

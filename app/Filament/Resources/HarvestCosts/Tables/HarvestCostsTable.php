@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\HarvestCosts\Tables;
 
+use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -18,58 +20,74 @@ class HarvestCostsTable
     {
         return $table
             ->columns([
-                TextColumn::make('harvest.harvest_date')
-                    ->label('Fecha de cosecha')
-                    ->date()
+                TextColumn::make('harvest_id')
+                    ->label('Cosecha')
+                    ->numeric()
+                    ->prefix('#')
                     ->sortable(),
-                TextColumn::make('harvest.crop.farm.name')
-                    ->label('Finca')
-                    ->searchable(),
                 TextColumn::make('harvest.crop.coffeeVariety.name')
                     ->label('Variedad')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('incurred_date')
+                    ->label('Fecha')
+                    ->date('d/m/Y')
+                    ->sortable(),
                 TextColumn::make('costCategory.name')
                     ->label('Categoría')
-                    ->searchable(),
+                    ->badge()
+                    ->color('warning')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('amount')
                     ->label('Monto')
                     ->money('Cop')
-                    ->sortable(),
-                TextColumn::make('incurred_date')
-                    ->label('Fecha del gasto')
-                    ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold')
+                    ->summarize([
+                        Sum::make()
+                            ->label('Total')
+                            ->money('Cop'),
+                    ]),
                 TextColumn::make('description')
                     ->label('Descripción')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->limit(40)
+
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->label('Creado el')
-                    ->dateTime()
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->label('Actualizado el')
-                    ->dateTime()
+                    ->dateTime('d/m/Y')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),    
             ])
             ->filters([
-                TrashedFilter::make(),
+                TrashedFilter::make()
+                    ->label('Papelera'),
             ])
             ->recordActions([
-                EditAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                DeleteAction::make()
-                    ->hidden(fn ($record) => $record->trashed()),
-                RestoreAction::make()
-                    ->hidden(fn ($record) => !$record->trashed()),
+                ActionGroup::make([
+                    EditAction::make()
+                        ->hidden(fn ($record) => $record->trashed()),
+                    DeleteAction::make()
+                        ->hidden(fn ($record) => $record->trashed()),
+                    RestoreAction::make()
+                        ->hidden(fn ($record) => !$record->trashed()),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                     RestoreBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('incurred_date', 'desc')
+            ->emptyStateHeading('Sin costos registrados')
+            ->emptyStateDescription('Los costos se asocian a cosechas específicas.')
+            ->emptyStateIcon('heroicon-o-currency-dollar');
     }
 }

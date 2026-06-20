@@ -35,6 +35,7 @@ class ProducersTable
                 TextColumn::make('farms')
                     ->label('Fincas')
                     ->badge()
+                    ->limit(20)
                     ->getStateUsing(function ($record) {
                         return $record->farms()->withTrashed()->get()->pluck('name')->toArray();
                     }),
