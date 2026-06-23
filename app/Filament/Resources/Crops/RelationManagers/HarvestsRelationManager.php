@@ -23,7 +23,8 @@ class HarvestsRelationManager extends RelationManager
                 DatePicker::make('harvest_date')
                     ->label('Fecha de Cosecha')
                     ->required()
-                    ->native(false),
+                    ->native(false)
+                    ->minDate(fn (): ?string => $this->getOwnerRecord()?->planting_date),
                 TextInput::make('gross_weight_kg')
                     ->label('Peso Bruto (kg)')
                     ->numeric()

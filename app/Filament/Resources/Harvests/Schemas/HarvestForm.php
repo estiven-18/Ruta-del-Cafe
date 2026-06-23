@@ -52,12 +52,19 @@ class HarvestForm
                             ->required()
                             ->native(false)
                             ->default(now())
+                            ->minDate(function (Get $get): ?string {
+                                $cropId = $get('crop_id');
+                                if (!$cropId) return null;
+                                $crop = \App\Models\Crop::withTrashed()->find($cropId);
+                                return $crop?->planting_date;
+                            })
                             ->rules([
                                 'after:2000-01-01',
                             ])
                             ->validationMessages([
                                 'required' => 'La fecha de cosecha es requerida.',
                                 'after' => 'La fecha no puede ser anterior al año 2000.',
+                                'after_or_equal' => 'La fecha de cosecha no puede ser anterior a la fecha de siembra del cultivo.',
                             ]),
                         TextInput::make('gross_weight_kg')
                             ->label('Peso Bruto (kg)')
