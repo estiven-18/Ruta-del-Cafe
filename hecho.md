@@ -12,5 +12,5 @@
 
 ## cultivos  -  done
 
-## cosechas  (revisar las validaciones de las fechas - y la cantidad ingregasa en los inputs)
+## cosechas  -  done
 
