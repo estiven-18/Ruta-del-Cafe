@@ -80,10 +80,14 @@ class HarvestForm
                             ->numeric()
                             ->step(0.01)
                             ->minValue(0)
+                            ->lte('gross_weight_kg')
                             ->default(0)
                             ->suffix('kg')
                             ->live()
-                            ->afterStateUpdated(fn (Set $set, Get $get) => static::recalculate($set, $get)),
+                            ->afterStateUpdated(fn (Set $set, Get $get) => static::recalculate($set, $get))
+                            ->validationMessages([
+                                'lte' => 'El peso defectuoso no puede ser mayor al peso bruto.',
+                            ]),
                         TextInput::make('net_weight_kg')
                             ->label('Peso Neto (kg)')
                             ->numeric()

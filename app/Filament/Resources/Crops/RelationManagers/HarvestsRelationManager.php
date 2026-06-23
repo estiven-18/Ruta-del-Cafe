@@ -36,6 +36,7 @@ class HarvestsRelationManager extends RelationManager
                     ->numeric()
                     ->step(0.01)
                     ->minValue(0)
+                    ->lte('gross_weight_kg')
                     ->default(0),
                 TextInput::make('net_weight_kg')
                     ->label('Peso Neto (kg)')
