@@ -6,4 +6,11 @@
 
 ## costos de cosechas  -  done
 
-## qualidad del cafe  -  done
+## evaluacion del cafe  -  done
+
+## reportes de rentabilidad  -  done
+
+## cultivos  -  done
+
+## cosechas  (revisar las validaciones de las fechas - y la cantidad ingregasa en los inputs)
+
