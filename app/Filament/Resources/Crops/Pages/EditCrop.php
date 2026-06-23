@@ -13,7 +13,8 @@ class EditCrop extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->before(fn($record) => $record->update(['status' => 'abandonado'])),
         ];
     }
 }

@@ -12,6 +12,7 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
 class CropsTable
@@ -92,6 +93,7 @@ class CropsTable
             ])
             ->recordClasses(fn($record) => $record->trashed() ? ['bg-danger-50', 'dark:bg-danger-950'] : [])
             ->filters([
+                TrashedFilter::make(),
                 SelectFilter::make('status')
                     ->label('Estado')
                     ->options([
@@ -116,6 +118,7 @@ class CropsTable
                     EditAction::make()
                         ->hidden(fn($record) => $record->trashed()),
                     DeleteAction::make()
+                        ->before(fn($record) => $record->update(['status' => 'abandonado']))
                         ->hidden(fn($record) => $record->trashed()),
                     RestoreAction::make()
                         ->hidden(fn($record) => !$record->trashed()),
@@ -123,7 +126,9 @@ class CropsTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make()->label('Eliminar'),
+                    DeleteBulkAction::make()
+                        ->label('Eliminar')
+                        ->before(fn($records) => $records->each->update(['status' => 'abandonado'])),
                     RestoreBulkAction::make()->label('Restaurar'),
                     \Filament\Actions\BulkAction::make('mark_harvested')
                         ->label('Marcar Cosechado')
