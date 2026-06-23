@@ -28,8 +28,6 @@ class CropResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationLabel = 'Cultivos';
-    protected static ?string $pluralLabel = 'Cultivos';
 
     public static function form(Schema $schema): Schema
     {
@@ -44,7 +42,7 @@ class CropResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            \App\Filament\Resources\Crops\RelationManagers\HarvestsRelationManager::class,
         ];
     }
 
