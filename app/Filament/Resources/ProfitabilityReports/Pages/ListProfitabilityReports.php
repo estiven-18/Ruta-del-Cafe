@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ProfitabilityReports\Pages;
 
 use App\Filament\Resources\ProfitabilityReports\ProfitabilityReportResource;
+use App\Filament\Resources\ProfitabilityReports\Widgets\ProfitabilityReportStatsWidget;
 use App\Models\Harvest;
 use App\Models\ProfitabilityReport;
 use Filament\Resources\Pages\ListRecords;
@@ -48,4 +49,10 @@ class ListProfitabilityReports extends ListRecords
         }
     }
 
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ProfitabilityReportStatsWidget::class,
+        ];
+    }
 }

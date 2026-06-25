@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ProfitabilityReports;
 
 use App\Filament\Resources\ProfitabilityReports\Pages\ListProfitabilityReports;
 use App\Filament\Resources\ProfitabilityReports\Tables\ProfitabilityReportsTable;
+use App\Filament\Resources\ProfitabilityReports\Widgets\ProfitabilityReportStatsWidget;
 use App\Models\ProfitabilityReport;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -30,6 +31,13 @@ class ProfitabilityReportResource extends Resource
     public static function table(Table $table): Table
     {
         return ProfitabilityReportsTable::configure($table);
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ProfitabilityReportStatsWidget::class,
+        ];
     }
 
     public static function getPages(): array

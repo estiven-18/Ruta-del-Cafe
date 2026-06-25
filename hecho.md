@@ -10,7 +10,7 @@
 
 ## evaluacion del cafe  -  done
 
-## reportes de rentabilidad  -  done
+## reportes de rentabilidad  -  done  -  revisar
 
 ## cultivos  -  done
 

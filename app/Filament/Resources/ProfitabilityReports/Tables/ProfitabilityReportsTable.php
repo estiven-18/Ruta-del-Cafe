@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\ProfitabilityReports\Tables;
 
+use Filament\Schemas\Components\Grid;
 use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
@@ -75,22 +77,40 @@ class ProfitabilityReportsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('profitability_percentage')
-                    ->label('Rentabilidad')
+                SelectFilter::make('harvest_id')
+                    ->label('Cosecha')
+                    ->relationship('harvest', 'id')
+                    ->searchable()
+                    ->preload()
+                    ->placeholder('Todas'),
+                Filter::make('date_range')
+                    ->label('Rango de Fechas')
+                    ->columns(2)
+                    ->schema([
+                        \Filament\Forms\Components\DatePicker::make('from')
+                            ->label('Desde'),
+                        \Filament\Forms\Components\DatePicker::make('to')
+                            ->label('Hasta'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when($data['from'] ?? null, fn ($q, $v) => $q->where('calculated_at', '>=', $v))
+                            ->when($data['to'] ?? null, fn ($q, $v) => $q->where('calculated_at', '<=', $v));
+                    }),
+                SelectFilter::make('profitability_status')
+                    ->label('Estado de Rentabilidad')
                     ->options([
-                        'high' => 'Alta (≥30%)',
-                        'medium' => 'Media (15-30%)',
-                        'low' => 'Baja (0-15%)',
-                        'negative' => 'Negativa (<0%)',
+                        'profitable' => 'Rentable',
+                        'break_even' => 'Punto de Equilibrio',
+                        'loss' => 'Pérdida',
                     ])
                     ->query(fn ($query, array $data) => match ($data['value'] ?? null) {
-                        'high' => $query->where('profitability_percentage', '>=', 30),
-                        'medium' => $query->whereBetween('profitability_percentage', [15, 29.99]),
-                        'low' => $query->whereBetween('profitability_percentage', [0, 14.99]),
-                        'negative' => $query->where('profitability_percentage', '<', 0),
+                        'profitable' => $query->where('profitability_percentage', '>', 0),
+                        'break_even' => $query->where('profitability_percentage', '=', 0),
+                        'loss' => $query->where('profitability_percentage', '<', 0),
                         default => $query,
                     })
-                    ->placeholder('Todas'),
+                    ->placeholder('Todos'),
             ])
             ->recordActions([
             ])
