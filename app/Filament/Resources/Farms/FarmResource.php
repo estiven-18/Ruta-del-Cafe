@@ -28,12 +28,36 @@ class FarmResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort = 2;
-    protected static ?string $navigationLabel = 'Fincas';
-    protected static ?string $pluralLabel = 'Fincas';
 
     public static function form(Schema $schema): Schema
     {
         return FarmForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                \Filament\Infolists\Components\TextEntry::make('name')
+                    ->label('Nombre'),
+                \Filament\Infolists\Components\TextEntry::make('location')
+                    ->label('Ubicación')
+                    ->placeholder('—'),
+                \Filament\Infolists\Components\TextEntry::make('total_area_hectares')
+                    ->label('Área Total')
+                    ->suffix(' ha'),
+                \Filament\Infolists\Components\TextEntry::make('producers')
+                    ->label('Productores')
+                    ->state(fn ($record) => $record->producers()->withTrashed()->pluck('name')->toArray())
+                    ->badge()
+                    ->placeholder('Sin productores'),
+                \Filament\Infolists\Components\TextEntry::make('notes')
+                    ->label('Notas')
+                    ->placeholder('Sin notas'),
+                \Filament\Infolists\Components\TextEntry::make('created_at')
+                    ->label('Creado')
+                    ->dateTime('d/m/Y H:i'),
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -44,7 +68,7 @@ class FarmResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            \App\Filament\Resources\Farms\RelationManagers\ProducersRelationManager::class,
         ];
     }
 

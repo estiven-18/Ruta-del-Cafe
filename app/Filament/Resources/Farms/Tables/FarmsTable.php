@@ -6,6 +6,7 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
@@ -18,6 +19,7 @@ class FarmsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->withTrashed())
             ->columns([
                 TextColumn::make('id')
                     ->label('#')
@@ -53,25 +55,31 @@ class FarmsTable
                     ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
+                     TextColumn::make('updated_at')
                     ->label('Actualizado el')
                     ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->recordClasses(fn ($record) => $record->trashed() ? '!bg-danger-500/10' : null)
             ->filters([
                 TrashedFilter::make()
                     ->label('Papelera'),
             ])
             ->recordActions([
                 ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Ver Detalles')
+                        ->modalHeading('Detalles de la Finca')
+                        ->modalSubmitAction(false)
+                        ->modalCancelActionLabel('Cerrar'),
                     EditAction::make()
                         ->hidden(fn ($record) => $record->trashed()),
                     DeleteAction::make()
                         ->hidden(fn ($record) => $record->trashed()),
                     RestoreAction::make()
-                        ->hidden(fn ($record) => !$record->trashed()),
-                ]),
+                        ->visible(fn ($record) => $record->trashed()),
+                ])
             ])
             ->defaultSort('name')
             ->emptyStateHeading('Sin fincas registradas')

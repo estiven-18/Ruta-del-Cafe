@@ -2,7 +2,7 @@
 
 ## productores  -  done  -  revisar
 
-## fincas  -  done
+## fincas  -  done  -  revisar
 
 ## costos de cosechas  -  done
 

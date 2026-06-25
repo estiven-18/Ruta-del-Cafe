@@ -20,7 +20,7 @@ class FarmForm
                         TextInput::make('name')
                             ->label('Nombre de la finca')
                             ->required()
-                            ->maxLength(100)
+                            ->maxLength(20)
                             ->placeholder('Nombre descriptivo de la finca')
                             ->autofocus()
                             ->validationMessages([
@@ -30,7 +30,7 @@ class FarmForm
                             ->label('Área total (ha)')
                             ->numeric()
                             ->MinValue(0.01)
-                            ->maxValue(30)
+                            ->maxValue(20)
                             ->step(0.01)
                             ->required()
                             ->placeholder('Ej: 15.50')
@@ -38,7 +38,7 @@ class FarmForm
                         Textarea::make('location')
                             ->label('Ubicación')
                             ->required()
-                            ->maxLength(100)
+                            ->maxLength(50)
                             ->placeholder('Vereda, municipio, departamento...')
                             ->rows(2)
                             ->columnSpanFull()
@@ -53,6 +53,9 @@ class FarmForm
                             ->searchable()
                             ->preload()
                             ->columnSpanFull()
+                            ->validationMessages([
+                                'required' => 'Seleccione al menos un productor asociado a esta finca.',
+                            ])
                             ->helperText('Seleccione los productores asociados a esta finca.'),
                         Textarea::make('notes')
                             ->label('Notas')

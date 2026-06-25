@@ -39,10 +39,6 @@ class FarmsRelationManager extends RelationManager
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->color('primary')
                     ->url(fn () => FarmResource::getUrl('index')),
-            ])
-            ->recordActions([
-                EditAction::make()
-                    ->url(fn ($record) => FarmResource::getUrl('edit', ['record' => $record])),
             ]);
     }
 }

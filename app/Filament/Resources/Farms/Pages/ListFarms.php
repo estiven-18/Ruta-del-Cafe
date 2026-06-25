@@ -16,4 +16,11 @@ class ListFarms extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Farms\Widgets\FarmStatsWidget::class,
+        ];
+    }
 }
