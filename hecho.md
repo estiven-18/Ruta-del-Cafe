@@ -8,7 +8,7 @@
 
 ## costos de cosechas  -  done  -  revisar
 
-## evaluacion del cafe  -  done
+## evaluacion del cafe  -  done  -  revisar
 
 ## reportes de rentabilidad  -  done  -  revisar
 

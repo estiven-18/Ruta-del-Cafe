@@ -9,6 +9,9 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
 use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -64,17 +67,17 @@ class QualityEvaluationsTable
                     ->label('Calidad')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
-                        'especial' => 'success',
-                        'alto' => 'info',
+                        'especial' => 'purple',
+                        'alto' => 'success',
                         'medio' => 'warning',
                         'bajo' => 'danger',
                         default => 'gray',
                     })
                     ->formatStateUsing(fn(string $state): string => match ($state) {
-                        'especial' => 'Especial',
-                        'alto' => 'Alto',
-                        'medio' => 'Medio',
-                        'bajo' => 'Bajo',
+                        'especial' => 'Especialidad',
+                        'alto' => 'Premium',
+                        'medio' => 'Comercial',
+                        'bajo' => 'Bajo Grado',
                         default => 'N/D',
                     }),
                 TextColumn::make('evaluator.name')
@@ -103,15 +106,68 @@ class QualityEvaluationsTable
                 SelectFilter::make('quality_grade')
                     ->label('Calidad')
                     ->options([
-                        'especial' => 'Especial',
-                        'alto' => 'Alto',
-                        'medio' => 'Medio',
-                        'bajo' => 'Bajo',
+                        'especial' => 'Specialty',
+                        'alto' => 'Premium',
+                        'medio' => 'Commercial',
+                        'bajo' => 'Below Grade',
                     ])
                     ->placeholder('Todas'),
             ])
             ->recordActions([
                 ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Ver Detalles')
+                        ->modalHeading('Detalles de la Evaluación')
+                        ->modalSubmitAction(false)
+                        ->modalCancelActionLabel('Cerrar')
+                        ->hidden(fn($record) => $record->trashed())
+                        ->infolist(fn ($record): array => [
+                            Grid::make(2)
+                                ->schema([
+                                    TextEntry::make('evaluation_date')
+                                        ->label('Fecha de Evaluación')
+                                        ->date('d/m/Y')
+                                        ->placeholder('—'),
+                                    TextEntry::make('harvest.harvest_date')
+                                        ->label('Fecha de Cosecha')
+                                        ->date('d/m/Y')
+                                        ->placeholder('—'),
+                                    TextEntry::make('harvest.crop.farm.name')
+                                        ->label('Finca')
+                                        ->placeholder('—'),
+                                    TextEntry::make('harvest.crop.coffeeVariety.name')
+                                        ->label('Variedad')
+                                        ->placeholder('—'),
+                                    TextEntry::make('final_score')
+                                        ->label('Puntaje Final')
+                                        ->numeric(2)
+                                        ->placeholder('—'),
+                                    TextEntry::make('quality_grade')
+                                        ->label('Calidad')
+                                        ->badge()
+                                        ->color(fn(string $state): string => match ($state) {
+                                            'especial' => 'purple',
+                                            'alto' => 'success',
+                                            'medio' => 'warning',
+                                            'bajo' => 'danger',
+                                            default => 'gray',
+                                        })
+                                        ->formatStateUsing(fn(string $state): string => match ($state) {
+                                            'especial' => 'Especialidad',
+                                            'alto' => 'Premium',
+                                            'medio' => 'Comercial',
+                                            'bajo' => 'Bajo Grado',
+                                            default => 'N/D',
+                                        }),
+                                    TextEntry::make('evaluator.name')
+                                        ->label('Evaluador')
+                                        ->placeholder('—'),
+                                    TextEntry::make('notes')
+                                        ->label('Notas')
+                                        ->placeholder('Sin notas')
+                                        ->columnSpanFull(),
+                                ]),
+                        ]),
                     EditAction::make()
                         ->hidden(fn($record) => $record->trashed()),
                     DeleteAction::make()

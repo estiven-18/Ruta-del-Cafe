@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\QualityEvaluations\Pages;
 
 use App\Filament\Resources\QualityEvaluations\QualityEvaluationResource;
+use App\Filament\Resources\QualityEvaluations\Widgets\QualityEvaluationStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -14,6 +15,13 @@ class ListQualityEvaluations extends ListRecords
     {
         return [
             CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            QualityEvaluationStatsWidget::class,
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Filament\Resources\QualityEvaluations\Pages\EditQualityEvaluation;
 use App\Filament\Resources\QualityEvaluations\Pages\ListQualityEvaluations;
 use App\Filament\Resources\QualityEvaluations\Schemas\QualityEvaluationForm;
 use App\Filament\Resources\QualityEvaluations\Tables\QualityEvaluationsTable;
+use App\Filament\Resources\QualityEvaluations\Widgets\QualityEvaluationStatsWidget;
 use App\Models\QualityEvaluation;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -45,6 +46,13 @@ class QualityEvaluationResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            QualityEvaluationStatsWidget::class,
         ];
     }
 
