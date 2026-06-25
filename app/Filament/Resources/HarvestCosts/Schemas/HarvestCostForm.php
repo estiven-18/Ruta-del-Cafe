@@ -51,8 +51,10 @@ class HarvestCostForm
                                     ->step(0.01)
                                     ->minValue(1)
                                     ->required()
+                                    ->maxLength(15)
                                     ->prefix('$')
                                     ->validationMessages([
+                                        'max_digits' => 'El monto no puede tener más de :max dígitos.',
                                         'min' => 'El monto no puede ser negativo.',
                                         'required' => 'El monto es requerido.',
                                     ]),
@@ -67,7 +69,7 @@ class HarvestCostForm
                                     ->label('Descripción')
                                     ->rows(2)
                                     ->placeholder('Detalle del gasto, factura, proveedor...')
-                                    ->maxLength(65535)
+                                    ->maxLength(150)
                                     ->default(null),
                             ])
                             ->defaultItems(1)
@@ -105,12 +107,19 @@ class HarvestCostForm
                                     ->required(),
                                 Textarea::make('description')
                                     ->label('Descripción')
-                                    ->maxLength(65535),
+                                    ->maxLength(150),
                             ]),
                         TextInput::make('amount')
                             ->label('Monto')
                             ->required()
                             ->numeric()
+                            ->minValue(1)
+                            ->maxLength(15)
+                            ->validationMessages([
+                                'max_digits' => 'El monto no puede tener más de :max dígitos.',
+                                'min' => 'El monto no puede ser negativo.',
+                                'required' => 'El monto es requerido.',
+                            ])
                             ->step(0.01)
                             ->prefix('$'),
                         DatePicker::make('incurred_date')
@@ -125,10 +134,11 @@ class HarvestCostForm
                             ->label('Descripción')
                             ->rows(4)
                             ->placeholder('Detalle del gasto, factura, proveedor, etc...')
-                            ->maxLength(65535)
+                            ->maxLength(150)
                             ->default(null)
                             ->columnSpanFull(),
-                    ]),
+                    ])
+                ->columnSpanFull(),   
             ]);
     }
 }

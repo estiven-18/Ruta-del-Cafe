@@ -45,14 +45,14 @@ class HarvestCostsTable
                 TextColumn::make('costCategory.name')
                     ->label('Categoría')
                     ->badge()
-                    ->color('warning')
+                    ->color('info')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('amount')
                     ->label('Monto')
                     ->money('Cop')
                     ->sortable()
-                    ->color('warning')
+                    ->color('success')
                     ->weight('bold')
                     ->summarize([
                         Sum::make()

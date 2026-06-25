@@ -7,6 +7,7 @@ use App\Filament\Resources\HarvestCosts\Pages\EditHarvestCost;
 use App\Filament\Resources\HarvestCosts\Pages\ListHarvestCosts;
 use App\Filament\Resources\HarvestCosts\Schemas\HarvestCostForm;
 use App\Filament\Resources\HarvestCosts\Tables\HarvestCostsTable;
+use App\Filament\Resources\HarvestCosts\Widgets\HarvestCostStatsWidget;
 use App\Models\HarvestCost;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -45,6 +46,13 @@ class HarvestCostResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            HarvestCostStatsWidget::class,
         ];
     }
 
