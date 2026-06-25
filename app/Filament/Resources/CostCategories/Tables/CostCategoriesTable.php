@@ -43,18 +43,25 @@ class CostCategoriesTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->recordClasses(fn ($record) => $record->trashed() ? ['bg-danger-50', 'dark:bg-danger-950'] : [])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
                 ActionGroup::make([
                     EditAction::make()
+                        ->label('Editar')
+                        ->modalHeading('Editar Categoría de Costo')
+                        ->modalSubmitActionLabel('Guardar')
                         ->hidden(fn ($record) => $record->trashed()),
                     DeleteAction::make()
+                        ->label('Eliminar')
                         ->hidden(fn ($record) => $record->trashed()),
                     RestoreAction::make()
-                        ->hidden(fn ($record) => !$record->trashed()),
+                        ->label('Restaurar')
+                        ->visible(fn ($record) => $record->trashed()),
                 ])
+                
             ])
             ->defaultSort('name')
             ->emptyStateHeading('Sin categorías registradas')
