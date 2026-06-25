@@ -8,6 +8,7 @@ use App\Filament\Resources\CoffeeVarieties\Pages\ListCoffeeVarieties;
 use App\Filament\Resources\CoffeeVarieties\Schemas\CoffeeVarietyForm;
 use App\Filament\Resources\CoffeeVarieties\RelationManagers\CropsRelationManager;
 use App\Filament\Resources\CoffeeVarieties\Tables\CoffeeVarietiesTable;
+use App\Filament\Resources\CoffeeVarieties\Widgets\CoffeeVarietyStatsWidget;
 use App\Models\CoffeeVariety;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -46,6 +47,13 @@ class CoffeeVarietyResource extends Resource
     {
         return [
             CropsRelationManager::class,
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            CoffeeVarietyStatsWidget::class,
         ];
     }
 

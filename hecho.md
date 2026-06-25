@@ -4,7 +4,7 @@
 
 ## fincas  -  done  -  revisar
 
-## costos de cosechas  -  done
+## costos de cosechas  -  done  -  revisar
 
 ## evaluacion del cafe  -  done
 

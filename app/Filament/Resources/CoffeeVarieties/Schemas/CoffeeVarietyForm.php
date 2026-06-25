@@ -19,14 +19,14 @@ class CoffeeVarietyForm
                         TextInput::make('name')
                             ->label('Nombre')
                             ->required()
-                            ->maxLength(255)
+                            ->maxLength(25)
                             ->placeholder('Ej: Bourbon, Caturra, Geisha, Typica')
                             ->autofocus()
                             ->columnSpanFull(),
                         TextInput::make('scientific_name')
                             ->label('Nombre Científico')
                             ->placeholder('Coffea arabica, Coffea canephora...')
-                            ->maxLength(255)
+                            ->maxLength(40)
                             ->required()
                             ->columnSpanFull(),
                         Toggle::make('is_resistant')
@@ -54,10 +54,12 @@ class CoffeeVarietyForm
                         Textarea::make('description')
                             ->label('Descripción')
                             ->rows(5)
-                            ->maxLength(250)
+                            ->maxLength(100)
                             ->placeholder('Notas, perfil de taza, recomendaciones de manejo, altitud óptima...')
-                            ->required()
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->validationMessages([
+                                'string' => 'La descripción no puede tener más de :max caracteres.',
+                            ])
                     ]),
             ])
             ->columns(2);
