@@ -7,6 +7,7 @@ use App\Filament\Resources\Crops\Pages\EditCrop;
 use App\Filament\Resources\Crops\Pages\ListCrops;
 use App\Filament\Resources\Crops\Schemas\CropForm;
 use App\Filament\Resources\Crops\Tables\CropsTable;
+use App\Filament\Resources\Crops\Widgets\CropStatsWidget;
 use App\Models\Crop;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -43,6 +44,13 @@ class CropResource extends Resource
     {
         return [
             \App\Filament\Resources\Crops\RelationManagers\HarvestsRelationManager::class,
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            CropStatsWidget::class,
         ];
     }
 

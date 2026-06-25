@@ -2,11 +2,10 @@
 
 namespace App\Filament\Resources\Crops\RelationManagers;
 
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
+
 use Filament\Tables\Columns\TextColumn;
+use App\Filament\Resources\Harvests\HarvestResource;
+use Filament\Actions\Action;
 use Filament\Tables\Table;
 use Filament\Resources\RelationManagers\RelationManager;
 
@@ -14,54 +13,9 @@ class HarvestsRelationManager extends RelationManager
 {
     protected static string $relationship = 'harvests';
 
-    protected static ?string $recordTitleAttribute = 'harvest_date';
+    protected static ?string $title = 'Cosechas';
 
-    public function form(Schema $schema): Schema
-    {
-        return $schema
-            ->components([
-                DatePicker::make('harvest_date')
-                    ->label('Fecha de Cosecha')
-                    ->required()
-                    ->native(false)
-                    ->minDate(fn (): ?string => $this->getOwnerRecord()?->planting_date),
-                TextInput::make('gross_weight_kg')
-                    ->label('Peso Bruto (kg)')
-                    ->numeric()
-                    ->step(0.01)
-                    ->minValue(0)
-                    ->required(),
-                TextInput::make('defective_weight_kg')
-                    ->label('Peso Defectuoso (kg)')
-                    ->numeric()
-                    ->step(0.01)
-                    ->minValue(0)
-                    ->lte('gross_weight_kg')
-                    ->default(0),
-                TextInput::make('net_weight_kg')
-                    ->label('Peso Neto (kg)')
-                    ->numeric()
-                    ->step(0.01)
-                    ->minValue(0)
-                    ->required(),
-                TextInput::make('sale_price_per_kg')
-                    ->label('Precio de Venta/kg')
-                    ->numeric()
-                    ->step(0.01)
-                    ->minValue(0)
-                    ->prefix('$'),
-                TextInput::make('total_income')
-                    ->label('Ingresos Totales')
-                    ->numeric()
-                    ->step(0.01)
-                    ->minValue(0)
-                    ->prefix('$'),
-                Textarea::make('notes')
-                    ->label('Notas')
-                    ->rows(3)
-                    ->columnSpanFull(),
-            ]);
-    }
+    protected static ?string $recordTitleAttribute = 'harvest_date';
 
     public function table(Table $table): Table
     {
@@ -91,8 +45,7 @@ class HarvestsRelationManager extends RelationManager
                 TextColumn::make('sale_price_per_kg')
                     ->label('Precio/kg')
                     ->money('Cop')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
                 TextColumn::make('total_income')
                     ->label('Ingresos')
                     ->money('Cop')
@@ -114,24 +67,12 @@ class HarvestsRelationManager extends RelationManager
             ->filters([
                 //
             ])
-            ->recordActions([
-                \Filament\Actions\ActionGroup::make([
-                    \Filament\Actions\EditAction::make(),
-                    \Filament\Actions\DeleteAction::make(),
-                ])
-                ->label('Acciones')
-                ->icon('heroicon-m-ellipsis-vertical')
-                ->size('sm')
-                ->color('gray'),
-            ])
-            ->toolbarActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
-                ]),
-            ])
-            ->defaultSort('harvest_date', 'desc')
-            ->emptyStateHeading('Sin cosechas')
-            ->emptyStateDescription('Registre la primera cosecha para este cultivo.')
-            ->emptyStateIcon('heroicon-o-calendar');
+            ->headerActions([
+                Action::make('ver_cosechas')
+                    ->label('Ir a Cosechas')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->color('primary')
+                    ->url(fn () => HarvestResource::getUrl('index')),
+            ]);
     }
 }

@@ -9,6 +9,9 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -28,6 +31,7 @@ class CropsTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('farm.name')
                     ->label('Finca')
+                    ->limit(20)
                     ->searchable()
                     ->sortable()
                     ->weight('bold')
@@ -36,6 +40,7 @@ class CropsTable
                     }),
                 TextColumn::make('coffeeVariety.name')
                     ->label('Variedad')
+                    ->limit(20)
                     ->badge()
                     ->color('success')
                     ->searchable()
@@ -114,7 +119,76 @@ class CropsTable
                     ->preload(),
             ])
             ->recordActions([
-                actionGroup::make([
+                ActionGroup::make([
+                    \Filament\Actions\Action::make('change_status')
+                        ->label('Cambiar Estado')
+                        ->icon('heroicon-o-arrow-path')
+                        ->color('success')
+                        ->modalHeading('Cambiar Estado del Cultivo')
+                        ->modalSubmitActionLabel('Actualizar')
+                        ->form([
+                            \Filament\Forms\Components\Select::make('status')
+                                ->label('Nuevo Estado')
+                                ->options([
+                                    'activo' => 'Activo',
+                                    'cosechado' => 'Cosechado',
+                                    'abandonado' => 'Abandonado',
+                                ])
+                                ->required(),
+                        ])
+                        ->action(fn ($record, array $data) => $record->update(['status' => $data['status']]))
+                        ->hidden(fn($record) => $record->trashed()),
+                    ViewAction::make()
+                        ->label('Ver Detalles')
+                        ->modalHeading('Detalles del Cultivo')
+                        ->modalSubmitAction(false)
+                        ->modalCancelActionLabel('Cerrar')
+                        ->hidden(fn($record) => $record->trashed())
+                        ->infolist(fn ($record): array => [
+                            Grid::make(2)
+                                ->schema([
+                                    TextEntry::make('farm.name')
+                                        ->label('Finca')
+                                        ->placeholder('—'),
+                                    TextEntry::make('coffeeVariety.name')
+                                        ->label('Variedad')
+                                        ->placeholder('—'),
+                                    TextEntry::make('planting_date')
+                                        ->label('Fecha de Siembra')
+                                        ->date('d/m/Y')
+                                        ->placeholder('—'),
+                                    TextEntry::make('estimated_harvest_date')
+                                        ->label('Cosecha Estimada')
+                                        ->date('d/m/Y')
+                                        ->placeholder('—'),
+                                    TextEntry::make('area_hectares')
+                                        ->label('Área')
+                                        ->suffix(' ha')
+                                        ->placeholder('—'),
+                                    TextEntry::make('plant_count')
+                                        ->label('Plantas')
+                                        ->placeholder('—'),
+                                    TextEntry::make('status')
+                                        ->label('Estado')
+                                        ->badge()
+                                        ->color(fn(string $state): string => match ($state) {
+                                            'activo' => 'success',
+                                            'cosechado' => 'info',
+                                            'abandonado' => 'danger',
+                                            default => 'gray',
+                                        })
+                                        ->formatStateUsing(fn(string $state): string => match ($state) {
+                                            'activo' => 'Activo',
+                                            'cosechado' => 'Cosechado',
+                                            'abandonado' => 'Abandonado',
+                                            default => $state,
+                                        }),
+                                ]),
+                            TextEntry::make('notes')
+                                ->label('Notas')
+                                ->placeholder('Sin notas')
+                                ->columnSpanFull(),
+                        ]),
                     EditAction::make()
                         ->hidden(fn($record) => $record->trashed()),
                     DeleteAction::make()

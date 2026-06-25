@@ -12,7 +12,7 @@
 
 ## reportes de rentabilidad  -  done  -  revisar
 
-## cultivos  -  done
+## cultivos  -  done  -  revisar
 
 ## cosechas  -  done
 

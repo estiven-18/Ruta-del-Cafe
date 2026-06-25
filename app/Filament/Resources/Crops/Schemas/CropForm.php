@@ -68,9 +68,9 @@ class CropForm
                                 'cosechado' => 'Cosechado',
                                 'abandonado' => 'Abandonado',
                             ])
-                            ->default('activo')
                             ->required()
-                            ->native(false),
+                            ->native(false)
+                            ->visible(fn (?string $record) => filled($record)),
                     ])
                     ->columns(2),
                 Section::make('Detalles del Cultivo')
@@ -115,25 +115,27 @@ class CropForm
                             ->required()
                             ->numeric()
                             ->step(0.01)
+                            ->maxLength(15)
                             ->minValue(0.01)
                             ->placeholder('Ej: 2.50')
                             ->suffix('ha')
                             ->live()
                             ->validationMessages([
+                                'max_digits' => 'El área no puede tener más de :max dígitos.',
                                 'required' => 'El área del cultivo es requerida.',
                                 'min' => 'El área debe ser mayor a 0.',
                             ]),
                         TextInput::make('plant_count')
                             ->label('Número de Plantas')
                             ->numeric()
-                            ->maxLength(100000)
+                            ->maxLength(15)
                             ->required()
                             ->minValue(0)
                             ->placeholder('Ej: 1000')
                             ->validationMessages([
                                 'required' => 'El numero de plantas es requerido.',
                                 'min' => 'El numero de plantas debe ser mayor a 0.',
-                                'max_digits' => 'Inserte una cantidad valida'
+                                'max_digits' => 'El área no puede tener más de :max dígitos.',
                             ])
                             ->live(),
                         Placeholder::make('density')
@@ -150,7 +152,7 @@ class CropForm
                             ->label('Notas')
                             ->rows(3)
                             ->placeholder('Información adicional sobre el cultivo...')
-                            ->maxLength(65535)
+                            ->maxLength(150)
                             ->default(null)
                             ->columnSpanFull(),
                     ])
