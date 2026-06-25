@@ -1,6 +1,6 @@
-## variedad de cafe done  -  done
+## variedad de cafe  -  done - revisar
 
-## productores  -  done
+## productores  -  done  -  revisar
 
 ## fincas  -  done
 

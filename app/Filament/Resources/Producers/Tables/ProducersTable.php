@@ -6,6 +6,7 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\RestoreAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -55,12 +56,17 @@ class ProducersTable
             ])
             ->recordActions([
                 ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Ver Detalles')
+                        ->modalHeading('Detalles del Productor')
+                        ->modalSubmitAction(false)
+                        ->modalCancelActionLabel('Cerrar'),
                     EditAction::make()
                         ->hidden(fn($record) => $record->trashed()),
                     DeleteAction::make()
                         ->hidden(fn($record) => $record->trashed()),
                     RestoreAction::make()
-                        ->hidden(fn($record) => !$record->trashed()),
+                        ->visible(fn($record) => $record->trashed()),
                 ])
             ])
             ->defaultSort('name')

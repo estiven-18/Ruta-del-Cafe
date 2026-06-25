@@ -16,4 +16,11 @@ class ListProducers extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Producers\Widgets\ProducerStatsWidget::class,
+        ];
+    }
 }
