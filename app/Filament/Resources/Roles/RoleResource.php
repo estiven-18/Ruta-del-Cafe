@@ -100,6 +100,7 @@ class RoleResource extends Resource
                 TextColumn::make('guard_name')
                     ->badge()
                     ->color('warning')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label(__('filament-shield::filament-shield.column.guard_name')),
                 TextColumn::make('team.name')
                     ->default('Global')
