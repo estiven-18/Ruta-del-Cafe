@@ -189,6 +189,11 @@ class CropsTable
                                 ->placeholder('Sin notas')
                                 ->columnSpanFull(),
                         ]),
+                    \Filament\Actions\Action::make('evaluate_quality')
+                        ->label('Evaluar Calidad')
+                        ->icon('heroicon-o-star')
+                        ->color('info')
+                        ->url(fn ($record) => \App\Filament\Resources\QualityEvaluations\QualityEvaluationResource::getUrl('create')),
                     EditAction::make()
                         ->hidden(fn($record) => $record->trashed()),
                     DeleteAction::make()

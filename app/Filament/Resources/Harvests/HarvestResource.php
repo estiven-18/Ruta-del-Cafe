@@ -7,6 +7,7 @@ use App\Filament\Resources\Harvests\Pages\EditHarvest;
 use App\Filament\Resources\Harvests\Pages\ListHarvests;
 use App\Filament\Resources\Harvests\Schemas\HarvestForm;
 use App\Filament\Resources\Harvests\Tables\HarvestsTable;
+use App\Filament\Resources\Harvests\Widgets\HarvestStatsWidget;
 use App\Models\Harvest;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -43,6 +44,13 @@ class HarvestResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            HarvestStatsWidget::class,
         ];
     }
 

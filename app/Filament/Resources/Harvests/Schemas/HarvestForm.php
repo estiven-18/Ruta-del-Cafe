@@ -121,8 +121,11 @@ class HarvestForm
                             ->label('Notas de la Cosecha')
                             ->rows(3)
                             ->placeholder('Condiciones climáticas, manejo, observaciones...')
-                            ->maxLength(65535)
+                            ->maxLength(150)
                             ->default(null)
+                            ->validationMessages([
+                                'string' => 'Las notas no pueden tener más de :max caracteres.',
+                            ])
                             ->columnSpanFull(),
                     ]),
             ]);
