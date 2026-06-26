@@ -119,32 +119,14 @@ class CropsTable
                     ->preload(),
             ])
             ->recordActions([
-                ActionGroup::make([
-                    \Filament\Actions\Action::make('change_status')
-                        ->label('Cambiar Estado')
-                        ->icon('heroicon-o-arrow-path')
-                        ->color('success')
-                        ->modalHeading('Cambiar Estado del Cultivo')
-                        ->modalSubmitActionLabel('Actualizar')
-                        ->form([
-                            \Filament\Forms\Components\Select::make('status')
-                                ->label('Nuevo Estado')
-                                ->options([
-                                    'activo' => 'Activo',
-                                    'cosechado' => 'Cosechado',
-                                    'abandonado' => 'Abandonado',
-                                ])
-                                ->required(),
-                        ])
-                        ->action(fn ($record, array $data) => $record->update(['status' => $data['status']]))
-                        ->hidden(fn($record) => $record->trashed()),
+                actionGroup::make([
                     ViewAction::make()
                         ->label('Ver Detalles')
                         ->modalHeading('Detalles del Cultivo')
                         ->modalSubmitAction(false)
                         ->modalCancelActionLabel('Cerrar')
                         ->hidden(fn($record) => $record->trashed())
-                        ->infolist(fn ($record): array => [
+                        ->infolist(fn($record): array => [
                             Grid::make(2)
                                 ->schema([
                                     TextEntry::make('farm.name')
@@ -189,11 +171,24 @@ class CropsTable
                                 ->placeholder('Sin notas')
                                 ->columnSpanFull(),
                         ]),
-                    \Filament\Actions\Action::make('evaluate_quality')
-                        ->label('Evaluar Calidad')
-                        ->icon('heroicon-o-star')
-                        ->color('info')
-                        ->url(fn ($record) => \App\Filament\Resources\QualityEvaluations\QualityEvaluationResource::getUrl('create')),
+                    \Filament\Actions\Action::make('change_status')
+                        ->label('Cambiar Estado')
+                        ->icon('heroicon-o-arrow-path')
+                        ->color('warning')
+                        ->modalHeading('Cambiar Estado del Cultivo')
+                        ->modalSubmitActionLabel('Actualizar')
+                        ->schema([
+                            \Filament\Forms\Components\Select::make('status')
+                                ->label('Nuevo Estado')
+                                ->options([
+                                    'activo' => 'Activo',
+                                    'cosechado' => 'Cosechado',
+                                    'abandonado' => 'Abandonado',
+                                ])
+                                ->required(),
+                        ])
+                        ->action(fn($record, array $data) => $record->update(['status' => $data['status']]))
+                        ->hidden(fn($record) => $record->trashed()),
                     EditAction::make()
                         ->hidden(fn($record) => $record->trashed()),
                     DeleteAction::make()
