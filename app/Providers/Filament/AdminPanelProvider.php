@@ -55,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(
                 FilamentShieldPlugin::make()
                     ->navigationGroup('Configuración')
-            );
+            )
+            ->sidebarCollapsibleOnDesktop();
     }
 }
