@@ -95,10 +95,10 @@ class HarvestsTable
                         default => 'gray',
                     })
                     ->formatStateUsing(fn (?string $state): string => match ($state) {
-                        'especial' => 'Specialty',
+                        'especial' => 'Especialidad',
                         'alto' => 'Premium',
-                        'medio' => 'Commercial',
-                        'bajo' => 'Below Grade',
+                        'medio' => 'Comercial',
+                        'bajo' => 'Bajo grado',
                         default => 'Sin evaluar',
                     }),
                 TextColumn::make('created_at')
