@@ -19,7 +19,10 @@ class LatestHarvestsWidget extends TableWidget
     {
         return $table
             ->query(fn () => Harvest::query()
-                    ->with('crop.farm')
+                    ->select('harvests.id', 'harvests.harvest_date', 'harvests.total_income')
+                    ->join('crops', 'crops.id', '=', 'harvests.crop_id')
+                    ->leftJoin('farms', 'farms.id', '=', 'crops.farm_id')
+                    ->selectRaw('COALESCE(farms.name, \'Sin finca\') as farm_name')
                     ->latest('harvest_date')
                     ->limit(5)
             )
@@ -30,7 +33,7 @@ class LatestHarvestsWidget extends TableWidget
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
-                Tables\Columns\TextColumn::make('crop.farm.name')
+                Tables\Columns\TextColumn::make('farm_name')
                     ->label('Finca')
                     ->searchable()
                     ->sortable(),

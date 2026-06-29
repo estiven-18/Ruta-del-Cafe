@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Farm;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductionByFarmWidget extends ChartWidget
 {
@@ -22,10 +23,11 @@ class ProductionByFarmWidget extends ChartWidget
 
     protected function getData(): array
     {
-        $farms = Farm::select('farms.id', 'farms.name')
+        $farms = Farm::withTrashed()
             ->join('crops', 'crops.farm_id', '=', 'farms.id')
             ->join('harvests', 'harvests.crop_id', '=', 'crops.id')
-            ->selectRaw('farms.id, farms.name, SUM(harvests.total_income) as total_production')
+            ->select('farms.id', 'farms.name')
+            ->selectRaw('SUM(harvests.total_income) as total_production')
             ->groupBy('farms.id', 'farms.name')
             ->orderByDesc('total_production')
             ->limit(6)
