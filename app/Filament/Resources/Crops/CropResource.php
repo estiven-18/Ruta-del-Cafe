@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class CropResource extends Resource
@@ -29,6 +30,26 @@ class CropResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?int $navigationSort = 1;
+    protected static bool $isGloballySearchable = true;
+
+    public static function getGlobalSearchResultTitle(Model $record): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        $farm = \App\Models\Farm::withTrashed()->find($record->farm_id);
+        $variety = \App\Models\CoffeeVariety::find($record->coffee_variety_id);
+
+        return 'Cultivo #' . str_pad($record->getKey(), 3, '0', STR_PAD_LEFT)
+            . ' — ' . ($farm?->name ?? 'Sin finca') . ' / ' . ($variety?->name ?? 'Sin variedad');
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Finca' => \App\Models\Farm::withTrashed()->find($record->farm_id)?->name ?? '—',
+            'Variedad' => \App\Models\CoffeeVariety::find($record->coffee_variety_id)?->name ?? '—',
+            'Estado' => ucfirst($record->status),
+            'Área' => number_format($record->area_hectares, 2) . ' ha',
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

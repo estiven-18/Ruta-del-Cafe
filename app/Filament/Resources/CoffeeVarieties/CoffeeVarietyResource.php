@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class CoffeeVarietyResource extends Resource
@@ -32,6 +33,20 @@ class CoffeeVarietyResource extends Resource
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationLabel = 'Variedades de Café';
     protected static ?string $pluralLabel = 'Variedades de Café';
+    protected static bool $isGloballySearchable = true;
+
+    public static function getGlobalSearchResultTitle(Model $record): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return $record->name;
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Descripción' => $record->description ?? '—',
+            'Cultivos' => $record->crops()->count(),
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

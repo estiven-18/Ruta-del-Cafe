@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class ProducerResource extends Resource
@@ -29,6 +30,26 @@ class ProducerResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort = 1;
+    protected static bool $isGloballySearchable = true;
+
+    public static function getGlobalSearchResultTitle(Model $record): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return $record->name;
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Documento' => $record->document_number ?? '—',
+            'Teléfono' => $record->phone ?? '—',
+            'Fincas' => $record->farms()->withTrashed()->count(),
+        ];
+    }
+
+    public static function getGlobalSearchEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getGlobalSearchEloquentQuery()->with(['farms']);
+    }
 
     public static function form(Schema $schema): Schema
     {

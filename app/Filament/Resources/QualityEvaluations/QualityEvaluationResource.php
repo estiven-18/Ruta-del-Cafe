@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class QualityEvaluationResource extends Resource
@@ -31,6 +32,27 @@ class QualityEvaluationResource extends Resource
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Evaluaciones de Calidad';
     protected static ?string $pluralLabel = 'Evaluaciones de Calidad';
+    protected static bool $isGloballySearchable = true;
+
+    public static function getGlobalSearchResultTitle(Model $record): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        $harvest = \App\Models\Harvest::withTrashed()->find($record->harvest_id);
+
+        return 'Evaluación #' . str_pad($record->getKey(), 3, '0', STR_PAD_LEFT)
+            . ' — Cosecha #' . str_pad($record->harvest_id, 3, '0', STR_PAD_LEFT);
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        $gradeLabels = ['especial' => 'Especial', 'alto' => 'Premium', 'medio' => 'Comercial', 'bajo' => 'Bajo Grado'];
+
+        return [
+            'Puntaje' => number_format($record->final_score, 1),
+            'Calidad' => $gradeLabels[$record->quality_grade] ?? $record->quality_grade,
+            'Evaluador' => $record->evaluator ?? '—',
+            'Fecha' => $record->evaluation_date?->format('d/m/Y') ?? '—',
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class FarmResource extends Resource
@@ -28,6 +29,26 @@ class FarmResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort = 2;
+    protected static bool $isGloballySearchable = true;
+
+    public static function getGlobalSearchResultTitle(Model $record): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return $record->name;
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Ubicación' => $record->location ?? '—',
+            'Área' => number_format($record->total_area_hectares, 2) . ' ha',
+            'Productores' => $record->producers()->withTrashed()->count(),
+        ];
+    }
+
+    public static function getGlobalSearchEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getGlobalSearchEloquentQuery()->with(['producers']);
+    }
 
     public static function form(Schema $schema): Schema
     {

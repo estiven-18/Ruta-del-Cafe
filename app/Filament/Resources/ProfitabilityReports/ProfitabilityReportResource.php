@@ -10,6 +10,7 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class ProfitabilityReportResource extends Resource
@@ -27,6 +28,23 @@ class ProfitabilityReportResource extends Resource
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationLabel = 'Reportes de Rentabilidad';
     protected static ?string $pluralLabel = 'Reportes de Rentabilidad';
+    protected static bool $isGloballySearchable = true;
+
+    public static function getGlobalSearchResultTitle(Model $record): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return 'Reporte #' . str_pad($record->getKey(), 3, '0', STR_PAD_LEFT)
+            . ' — Cosecha #' . str_pad($record->harvest_id, 3, '0', STR_PAD_LEFT);
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Ingresos' => '$' . number_format($record->total_income, 0, ',', '.'),
+            'Costos' => '$' . number_format($record->total_costs, 0, ',', '.'),
+            'Ganancia Neta' => '$' . number_format($record->net_profit, 0, ',', '.'),
+            'Margen' => number_format($record->profitability_percentage, 1) . '%',
+        ];
+    }
 
     public static function table(Table $table): Table
     {
