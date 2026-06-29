@@ -125,13 +125,15 @@ class ProfitabilityReportsTable
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('success')
                     ->url(route('exports.profitability-reports.excel'))
-                    ->openUrlInNewTab(),
+                    ->openUrlInNewTab()
+                    ->visible(fn () => request()->user()->can('ExportarReportes')),
                 \Filament\Actions\Action::make('export_pdf')
                     ->label('Exportar PDF')
                     ->icon('heroicon-o-document-text')
                     ->color('danger')
                     ->url(route('exports.profitability-reports.pdf'))
-                    ->openUrlInNewTab(),
+                    ->openUrlInNewTab()
+                    ->visible(fn () => request()->user()->can('ExportarReportes')),
             ]);
     }
 }

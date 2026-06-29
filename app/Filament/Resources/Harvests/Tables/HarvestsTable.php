@@ -241,7 +241,8 @@ class HarvestsTable
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('success')
                     ->url(route('exports.harvests'))
-                    ->openUrlInNewTab(),
+                    ->openUrlInNewTab()
+                    ->visible(fn () => request()->user()->can('ExportarCosechas')),
             ]);
     }
 }

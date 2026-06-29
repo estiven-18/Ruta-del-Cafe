@@ -192,7 +192,8 @@ class QualityEvaluationsTable
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('success')
                     ->url(route('exports.quality-evaluations'))
-                    ->openUrlInNewTab(),
+                    ->openUrlInNewTab()
+                    ->visible(fn () => request()->user()->can('ExportarEvaluaciones')),
             ]);
     }
 }

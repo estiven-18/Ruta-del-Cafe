@@ -6,13 +6,13 @@
 
 ## fincas  -  done  -  revisar
 
-## costos de cosechas  -  done  -  revisar  -  excel
+## costos de cosechas  -  done  -  revisar  -  excel - rol
 
-## evaluacion del cafe  -  done  -  revisar  -  excel
+## evaluacion del cafe  -  done  -  revisar  -  excel - rol
 
-## reportes de rentabilidad  -  done  -  revisar  - excel  - pfd
+## reportes de rentabilidad  -  done  -  revisar  - excel  - pfd - rol
 
 ## cultivos  -  done  -  revisar
 
-## cosechas  -  done  -  revisar  -  excel
+## cosechas  -  done  -  revisar  -  excel - rol
 

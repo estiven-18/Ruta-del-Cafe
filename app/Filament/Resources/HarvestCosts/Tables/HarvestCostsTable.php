@@ -95,7 +95,8 @@ class HarvestCostsTable
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('success')
                     ->url(route('exports.harvest-costs'))
-                    ->openUrlInNewTab(),
+                    ->openUrlInNewTab()
+                    ->visible(fn () => request()->user()->can('ExportarCostos')),
             ]);
     }
 }

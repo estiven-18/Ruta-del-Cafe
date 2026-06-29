@@ -24,10 +24,10 @@ return [
         'show_model_path' => false,
         'cluster' => null,
         'tabs' => [
-            'pages' => true,
+            'pages' => false,
             'widgets' => true,
             'resources' => true,
-            'custom_permissions' => false,
+            'custom_permissions' => true,
         ],
     ],
 
@@ -232,7 +232,12 @@ return [
     |
     */
 
-    'custom_permissions' => [],
+    'custom_permissions' => [
+        'exportar_cosechas',
+        'exportar_costos',
+        'exportar_evaluaciones',
+        'exportar_reportes',
+    ],
 
     /*
     |--------------------------------------------------------------------------
