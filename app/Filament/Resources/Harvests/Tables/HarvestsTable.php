@@ -234,6 +234,14 @@ class HarvestsTable
             ->defaultSort('harvest_date', 'desc')
             ->emptyStateHeading('Sin cosechas registradas')
             ->emptyStateDescription('Las cosechas se generan a partir de los cultivos activos.')
-            ->emptyStateIcon('heroicon-o-cube-transparent');
+            ->emptyStateIcon('heroicon-o-cube-transparent')
+            ->headerActions([
+                \Filament\Actions\Action::make('export_excel')
+                    ->label('Exportar Excel')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('success')
+                    ->url(route('exports.harvests'))
+                    ->openUrlInNewTab(),
+            ]);
     }
 }

@@ -118,6 +118,20 @@ class ProfitabilityReportsTable
             ->defaultSort('harvest_id', 'desc')
             ->emptyStateHeading('Sin reportes generados')
             ->emptyStateDescription('Los reportes se crean automáticamente al visitar esta página.')
-            ->emptyStateIcon('heroicon-o-chart-bar');
+            ->emptyStateIcon('heroicon-o-chart-bar')
+            ->headerActions([
+                \Filament\Actions\Action::make('export_excel')
+                    ->label('Exportar Excel')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('success')
+                    ->url(route('exports.profitability-reports.excel'))
+                    ->openUrlInNewTab(),
+                \Filament\Actions\Action::make('export_pdf')
+                    ->label('Exportar PDF')
+                    ->icon('heroicon-o-document-text')
+                    ->color('danger')
+                    ->url(route('exports.profitability-reports.pdf'))
+                    ->openUrlInNewTab(),
+            ]);
     }
 }

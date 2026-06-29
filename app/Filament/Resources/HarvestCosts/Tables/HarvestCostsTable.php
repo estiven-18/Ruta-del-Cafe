@@ -88,6 +88,14 @@ class HarvestCostsTable
             ->defaultSort('incurred_date', 'desc')
             ->emptyStateHeading('Sin costos registrados')
             ->emptyStateDescription('Los costos se asocian a cosechas específicas.')
-            ->emptyStateIcon('heroicon-o-currency-dollar');
+            ->emptyStateIcon('heroicon-o-currency-dollar')
+            ->headerActions([
+                \Filament\Actions\Action::make('export_excel')
+                    ->label('Exportar Excel')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('success')
+                    ->url(route('exports.harvest-costs'))
+                    ->openUrlInNewTab(),
+            ]);
     }
 }

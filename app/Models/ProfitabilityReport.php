@@ -28,6 +28,6 @@ class ProfitabilityReport extends Model
 
     public function harvest(): BelongsTo
     {
-        return $this->belongsTo(Harvest::class);
+        return $this->belongsTo(Harvest::class)->withTrashed();
     }
 }

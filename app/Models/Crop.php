@@ -24,7 +24,7 @@ class Crop extends Model
 
     public function farm(): BelongsTo
     {
-        return $this->belongsTo(Farm::class);
+        return $this->belongsTo(Farm::class)->withTrashed();
     }
 
     public function coffeeVariety(): BelongsTo

@@ -185,6 +185,14 @@ class QualityEvaluationsTable
             ->defaultSort('evaluation_date', 'desc')
             ->emptyStateHeading('Sin evaluaciones registradas')
             ->emptyStateDescription('Comience evaluando la calidad de las cosechas.')
-            ->emptyStateIcon('heroicon-o-star');
+            ->emptyStateIcon('heroicon-o-star')
+            ->headerActions([
+                \Filament\Actions\Action::make('export_excel')
+                    ->label('Exportar Excel')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('success')
+                    ->url(route('exports.quality-evaluations'))
+                    ->openUrlInNewTab(),
+            ]);
     }
 }

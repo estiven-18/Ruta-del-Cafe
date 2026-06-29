@@ -25,7 +25,7 @@ class Harvest extends Model
 
     public function crop(): BelongsTo
     {
-        return $this->belongsTo(Crop::class);
+        return $this->belongsTo(Crop::class)->withTrashed();
     }
 
     public function harvestCosts(): HasMany
