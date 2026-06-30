@@ -42,34 +42,4 @@ class FarmPolicy
         return $authUser->can('DeleteAny:Farm');
     }
 
-    public function restore(AuthUser $authUser, Farm $farm): bool
-    {
-        return $authUser->can('Restore:Farm');
-    }
-
-    public function forceDelete(AuthUser $authUser, Farm $farm): bool
-    {
-        return $authUser->can('ForceDelete:Farm');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:Farm');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:Farm');
-    }
-
-    public function replicate(AuthUser $authUser, Farm $farm): bool
-    {
-        return $authUser->can('Replicate:Farm');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:Farm');
-    }
-
 }

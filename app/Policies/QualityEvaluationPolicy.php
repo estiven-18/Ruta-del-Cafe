@@ -42,34 +42,4 @@ class QualityEvaluationPolicy
         return $authUser->can('DeleteAny:QualityEvaluation');
     }
 
-    public function restore(AuthUser $authUser, QualityEvaluation $qualityEvaluation): bool
-    {
-        return $authUser->can('Restore:QualityEvaluation');
-    }
-
-    public function forceDelete(AuthUser $authUser, QualityEvaluation $qualityEvaluation): bool
-    {
-        return $authUser->can('ForceDelete:QualityEvaluation');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:QualityEvaluation');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:QualityEvaluation');
-    }
-
-    public function replicate(AuthUser $authUser, QualityEvaluation $qualityEvaluation): bool
-    {
-        return $authUser->can('Replicate:QualityEvaluation');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:QualityEvaluation');
-    }
-
 }

@@ -42,34 +42,4 @@ class CostCategoryPolicy
         return $authUser->can('DeleteAny:CostCategory');
     }
 
-    public function restore(AuthUser $authUser, CostCategory $costCategory): bool
-    {
-        return $authUser->can('Restore:CostCategory');
-    }
-
-    public function forceDelete(AuthUser $authUser, CostCategory $costCategory): bool
-    {
-        return $authUser->can('ForceDelete:CostCategory');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:CostCategory');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:CostCategory');
-    }
-
-    public function replicate(AuthUser $authUser, CostCategory $costCategory): bool
-    {
-        return $authUser->can('Replicate:CostCategory');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:CostCategory');
-    }
-
 }

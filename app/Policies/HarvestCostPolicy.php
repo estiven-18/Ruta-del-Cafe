@@ -42,34 +42,4 @@ class HarvestCostPolicy
         return $authUser->can('DeleteAny:HarvestCost');
     }
 
-    public function restore(AuthUser $authUser, HarvestCost $harvestCost): bool
-    {
-        return $authUser->can('Restore:HarvestCost');
-    }
-
-    public function forceDelete(AuthUser $authUser, HarvestCost $harvestCost): bool
-    {
-        return $authUser->can('ForceDelete:HarvestCost');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:HarvestCost');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:HarvestCost');
-    }
-
-    public function replicate(AuthUser $authUser, HarvestCost $harvestCost): bool
-    {
-        return $authUser->can('Replicate:HarvestCost');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:HarvestCost');
-    }
-
 }

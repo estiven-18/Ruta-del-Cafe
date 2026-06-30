@@ -42,34 +42,4 @@ class CoffeeVarietyPolicy
         return $authUser->can('DeleteAny:CoffeeVariety');
     }
 
-    public function restore(AuthUser $authUser, CoffeeVariety $coffeeVariety): bool
-    {
-        return $authUser->can('Restore:CoffeeVariety');
-    }
-
-    public function forceDelete(AuthUser $authUser, CoffeeVariety $coffeeVariety): bool
-    {
-        return $authUser->can('ForceDelete:CoffeeVariety');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:CoffeeVariety');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:CoffeeVariety');
-    }
-
-    public function replicate(AuthUser $authUser, CoffeeVariety $coffeeVariety): bool
-    {
-        return $authUser->can('Replicate:CoffeeVariety');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:CoffeeVariety');
-    }
-
 }

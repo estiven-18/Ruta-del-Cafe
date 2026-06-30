@@ -42,34 +42,4 @@ class CropPolicy
         return $authUser->can('DeleteAny:Crop');
     }
 
-    public function restore(AuthUser $authUser, Crop $crop): bool
-    {
-        return $authUser->can('Restore:Crop');
-    }
-
-    public function forceDelete(AuthUser $authUser, Crop $crop): bool
-    {
-        return $authUser->can('ForceDelete:Crop');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:Crop');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:Crop');
-    }
-
-    public function replicate(AuthUser $authUser, Crop $crop): bool
-    {
-        return $authUser->can('Replicate:Crop');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:Crop');
-    }
-
 }

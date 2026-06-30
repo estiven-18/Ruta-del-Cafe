@@ -25,7 +25,7 @@ return [
         'cluster' => null,
         'tabs' => [
             'pages' => false,
-            'widgets' => true,
+            'widgets' => false,
             'resources' => true,
             'custom_permissions' => true,
         ],
@@ -126,16 +126,12 @@ return [
         'merge' => true,
         'generate' => true,
         'methods' => [
-            'viewAny', 'view', 'create', 'update', 'delete', 'deleteAny', 'restore',
-            'forceDelete', 'forceDeleteAny', 'restoreAny', 'replicate', 'reorder',
+            'viewAny', 'view', 'create', 'update', 'delete', 'deleteAny',
         ],
         'single_parameter_methods' => [
             'viewAny',
             'create',
             'deleteAny',
-            'forceDeleteAny',
-            'restoreAny',
-            'reorder',
         ],
     ],
 

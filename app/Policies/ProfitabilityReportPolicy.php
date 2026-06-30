@@ -42,34 +42,4 @@ class ProfitabilityReportPolicy
         return $authUser->can('DeleteAny:ProfitabilityReport');
     }
 
-    public function restore(AuthUser $authUser, ProfitabilityReport $profitabilityReport): bool
-    {
-        return $authUser->can('Restore:ProfitabilityReport');
-    }
-
-    public function forceDelete(AuthUser $authUser, ProfitabilityReport $profitabilityReport): bool
-    {
-        return $authUser->can('ForceDelete:ProfitabilityReport');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:ProfitabilityReport');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:ProfitabilityReport');
-    }
-
-    public function replicate(AuthUser $authUser, ProfitabilityReport $profitabilityReport): bool
-    {
-        return $authUser->can('Replicate:ProfitabilityReport');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:ProfitabilityReport');
-    }
-
 }

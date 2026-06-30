@@ -42,34 +42,4 @@ class HarvestPolicy
         return $authUser->can('DeleteAny:Harvest');
     }
 
-    public function restore(AuthUser $authUser, Harvest $harvest): bool
-    {
-        return $authUser->can('Restore:Harvest');
-    }
-
-    public function forceDelete(AuthUser $authUser, Harvest $harvest): bool
-    {
-        return $authUser->can('ForceDelete:Harvest');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:Harvest');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:Harvest');
-    }
-
-    public function replicate(AuthUser $authUser, Harvest $harvest): bool
-    {
-        return $authUser->can('Replicate:Harvest');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:Harvest');
-    }
-
 }

@@ -42,34 +42,4 @@ class ProducerPolicy
         return $authUser->can('DeleteAny:Producer');
     }
 
-    public function restore(AuthUser $authUser, Producer $producer): bool
-    {
-        return $authUser->can('Restore:Producer');
-    }
-
-    public function forceDelete(AuthUser $authUser, Producer $producer): bool
-    {
-        return $authUser->can('ForceDelete:Producer');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:Producer');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:Producer');
-    }
-
-    public function replicate(AuthUser $authUser, Producer $producer): bool
-    {
-        return $authUser->can('Replicate:Producer');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:Producer');
-    }
-
 }
