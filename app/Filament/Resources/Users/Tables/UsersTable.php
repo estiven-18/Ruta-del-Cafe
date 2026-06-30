@@ -28,6 +28,7 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('roles.name')
                     ->label('Rol')
+                    ->badge()
                     ->separator(', ')
                     ->searchable(),
                 TextColumn::make('created_at')
